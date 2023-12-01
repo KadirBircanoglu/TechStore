@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section id="main-content">
+    <section class="wrapper">
+        <!--overview start-->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-laptop"></i> TechStore YÖNETIM PANELI</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="/Admin/Index">Home</a></li>
+                    <li><i class="fa fa-laptop"></i>Anasayfa</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box blue-bg">
+                    <i class="fa fa-cloud-download"></i>
+                    <div class="count">@ViewBag.DailyOrderCount</div>
+                    <div class="title">Günlük Yeni Sipariş</div>
+                </div>
+                <!--/.info-box-->
+            </div>
+            <!--/.col-->
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box brown-bg">
+                    <i class="fa fa-shopping-cart"></i>
+                    <div class="count">@ViewBag.TotalOrderCount</div>
+                    <div class="title">Toplam Sipariş</div>
+                </div>
+                <!--/.info-box-->
+            </div>
+            <!--/.col-->
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="info-box dark-bg">
+                    <i class="fa fa-thumbs-o-up"></i>
+                    <div class="count">@ViewBag.MonthlyTurnover ₺</div>
+                    <div class="title">Aylık Ciro</div>
+                </div>
+                <!--/.info-box-->
+            </div>
+            <!--/.col-->
+            <!--/.col-->
+
+        </div>
+        <!--/.row-->
+
+
+        <div class="panel-body">
+            <div class="tab-pane" id="chartjs">
+                <div class="row">
+                    <!-- Line -->
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Line
+                            </header>
+                            <div class="panel-body text-center">
+                                <canvas id="line" height="300" width="450"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Bar -->
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Bar
+                            </header>
+                            <div class="panel-body text-center">
+                                <canvas id="bar" height="300" width="500"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- Pie -->
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Pie
+                            </header>
+                            <div class="panel-body text-center">
+                                <canvas id="pie" height="300" width="400"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Doughnut -->
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Doughnut
+                            </header>
+                            <div class="panel-body text-center">
+                                <canvas id="doughnut" height="300" width="400"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("AdminOrder",new{currentpage=ViewBag.Currentpage})
+    </section>
+</section>
+
+
+
+@section TechStoreScripts{
+    <script>
+
+        $(document).ready(function () {
+            console.log("admin page loaded");
+            $.ajax({
+                url: '/Admin/GetDougnutData',
+                type: 'get',
+                success: function (res) {
+                    console.log(res);
+                    if (res.issucces) {
+                        console.log(res.data);
+
+                        // var doughnutData = [];
+                        // res.data.forEach(function (item) {
+                        //     var x = {color: item.color, value: item.value}
+                        //     console.log(x);
+                        //     doughnutData.push(x);
+                        // });
+
+                        new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(res.data);
+
+                    }
+                    else {
+                        alert(res.message);
+                    }
+                },
+                error: function (err) {
+                    alert(err.message)
+                }
+
+            });
+
+
+            $.ajax({
+                url: '/Admin/GetLineChartData',
+                type: 'get',
+                success: function (res) {
+                    console.log(res);
+                    if (res.issucces) {
+                        console.log(res.data);
+                        var lineChartData = {
+                            labels: res.data.labels,
+                            datasets: [
+                                {
+                                    fillColor: "rgba(151,187,205,0.5)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(151,187,205,1)",
+                                    pointStrokeColor: "#fff",
+                                    data: res.data.labelCount
+                                }
+                            ]
+
+                        };
+
+                        new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+
+                    }
+                    else {
+                        alert(res.message);
+                    }
+                },
+                error: function (err) {
+                    alert(err.message)
+                }
+
+            });
+
+
+
+            $.ajax({
+                url: '/Admin/GetBarChartData',
+                type: 'get',
+                success: function (res) {
+                    console.log(res);
+                    if (res.issucces) {
+                        console.log(res.data);
+                        var barChartData = {
+                            labels:res.data.labels ,
+                            datasets: [
+                                {
+                                    fillColor: "rgba(220,220,220,0.5)",
+                                    strokeColor: "rgba(220,220,220,1)",
+                                    data: res.data.labelCount
+                                }
+                               
+                            ]
+
+                        };
+                        new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
+
+                    }
+                    else {
+                        alert(res.message);
+                    }
+                },
+                error: function (err) {
+                    alert(err.message)
+                }
+
+            });
+
+        });
+
+    </script>
+}

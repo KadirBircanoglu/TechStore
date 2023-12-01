@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>@ViewData["Title"] - TechStore</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/OneTech/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/regular_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/regular_responsive.css">
+
+
+
+    <link rel="stylesheet" type="text/css" href="~/OneTech/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/plugins/slick-1.8.0/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/responsive.css">
+
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/cart_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/cart_responsive.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/product_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/OneTech/styles/product_responsive.css">
+
+
+</head>
+
+<body>
+
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <!-- Top Bar -->
+            @await Component.InvokeAsync("LayoutTop")
+
+            <!-- Header Main -->
+
+            <div class="header_main">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Logo -->
+                        <div class="col-lg-2 col-sm-3 col-3 order-1">
+                            <div class="logo_container">
+                                <div class="logo"><a href="/Home/Index">TechStore</a></div>
+                            </div>
+                        </div>
+
+                        <!-- Search -->
+                        <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+                            <div class="header_search">
+                                <div class="header_search_content">
+                                    <div class="header_search_form_container">
+                                        <form action="#" class="header_search_form clearfix">
+                                            <input type="search" required="required" class="header_search_input" placeholder="Ürün Arama Çubuğu">
+                                            <div class="custom_dropdown">
+                                                <div class="custom_dropdown_list">
+                                                    <span class="custom_dropdown_placeholder clc">Tüm Kategoriler</span>
+                                                    <i class="fas fa-chevron-down"></i>
+                                                    <ul class="custom_list clc">
+                                                        <li><a class="clc" href="#">Tüm Kategoriler</a></li>
+                                                        <li><a class="clc" href="#">Computers</a></li>
+                                                        <li><a class="clc" href="#">Laptops</a></li>
+                                                        <li><a class="clc" href="#">Cameras</a></li>
+                                                        <li><a class="clc" href="#">Hardware</a></li>
+                                                        <li><a class="clc" href="#">Smartphones</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/OneTech/images/search.png" alt=""></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wishlist -->
+                        <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+                            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                                <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                                    <div class="wishlist_icon"><img src="~/OneTech/images/heart.png" alt=""></div>
+                                    <div class="wishlist_content">
+                                        <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                                        <div class="wishlist_count">115</div>
+                                    </div>
+                                </div>
+
+                                @await Component.InvokeAsync("Cart")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation -->
+
+            <nav class="main_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="main_nav_content d-flex flex-row">
+
+                                <!-- Categories Menu -->
+                                @if (TempData["login"] != null)
+                                {
+
+                                }
+                                else
+                                {
+                                    @await Component.InvokeAsync("TopYanMenu")
+
+                                }
+
+                                <!-- Main Nav Menu -->
+                                @await Component.InvokeAsync("TopUstMenu")
+
+                                <!-- Menu Trigger -->
+
+                                <div class="menu_trigger_container ml-auto">
+                                    <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+                                        <div class="menu_burger">
+                                            <div class="menu_trigger_text">menu</div>
+                                            <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Menu -->
+
+            <div class="page_menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="page_menu_content">
+
+                                <div class="page_menu_search">
+                                    <form action="#">
+                                        <input type="search" required="required" class="page_menu_search_input" placeholder="Arama Çubuğu">
+                                    </form>
+                                </div>
+                                <ul class="page_menu_nav">
+                                    <li class="page_menu_item has-children">
+                                        <a href="#">Language<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item has-children">
+                                        <a href="#">Currency<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item">
+                                        <a href="index.html">Home<i class="fa fa-angle-down"></i></a>
+                                    </li>
+                                    <li class="page_menu_item has-children">
+                                        <a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
+                                            <li class="page_menu_item has-children">
+                                                <a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
+                                                <ul class="page_menu_selection">
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item has-children">
+                                        <a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item has-children">
+                                        <a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
+                                    <li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
+                                </ul>
+
+                                <div class="menu_contact">
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/OneTech/images/phone_white.png" alt=""></div>+38 068 005 3570</div>
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/OneTech/images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- Characteristics -->
+        @if (TempData["login"] != null)
+        {
+
+        }
+        else
+        {
+            @await Component.InvokeAsync("Characteristics")
+
+        }
+
+        <!-- Single Blog Post -->
+        @RenderBody()
+
+        <!-- Newsletter -->
+
+        <div class="newsletter">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
+                            <div class="newsletter_title_container">
+                                <div class="newsletter_icon"><img src="~/OneTech/images/send.png" alt=""></div>
+                                <div class="newsletter_title">Değişiklikler için kaydolun!</div>
+                                <div class="newsletter_text"><p>...ve ilk alışverişte %20 indirim kazanın!</p></div>
+                            </div>
+                            <div class="newsletter_content clearfix">
+                                <form action="#" class="newsletter_form">
+                                    <input type="email" class="newsletter_input" required="required" placeholder="Mail adresinizi girin">
+                                    <button class="newsletter_button">Üye Olun!</button>
+                                </form>
+                                <div class="newsletter_unsubscribe_link"><a href="#">Üyelikten çık.</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("Footer")
+        <!-- Copyright -->
+
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+                            <div class="copyright_content">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </div>
+                            <div class="logos ml-sm-auto">
+                                <ul class="logos_list">
+                                    <li><a href="#"><img src="~/OneTech/images/logos_1.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/OneTech/images/logos_2.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/OneTech/images/logos_3.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/OneTech/images/logos_4.png" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/OneTech/js/jquery-3.3.1.min.js"></script>
+    <script src="~/OneTech/styles/bootstrap4/popper.js"></script>
+    <script src="~/OneTech/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/OneTech/plugins/greensock/TweenMax.min.js"></script>
+    <script src="~/OneTech/plugins/greensock/TimelineMax.min.js"></script>
+    <script src="~/OneTech/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="~/OneTech/plugins/greensock/animation.gsap.min.js"></script>
+    <script src="~/OneTech/plugins/greensock/ScrollToPlugin.min.js"></script>
+    <script src="~/OneTech/plugins/easing/easing.js"></script>
+    <script src="~/OneTech/js/regular_custom.js"></script>
+    <script src="~/OneTech/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/OneTech/plugins/slick-1.8.0/slick.js"></script>
+    <script src="~/OneTech/js/custom.js"></script>
+    <script src="~/OneTech/js/cart_custom.js"></script>
+
+    <script src="~/OneTech/js/product_custom.js"></script>
+
+    @await RenderSectionAsync("TechStoreScripts", required: false)
+
+
+
+</body>
+
+</html>

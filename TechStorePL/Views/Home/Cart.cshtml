@@ -1,0 +1,103 @@
+﻿@model List<ProductDTO>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<div class="cart_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cart_container">
+                    <div class="cart_title">Sepetinizde @Model.Sum(x=> x.CardQuantity) adet ürün bulunmaktadır.</div>
+                    <div class="cart_items">
+                        <ul class="cart_list">
+                            @foreach (var item in Model)
+                            {
+                                <li class="cart_item clearfix">
+                                    @if (item.ProductPictures!=null)
+                                    {
+                                        <div class="cart_item_image">
+                                            <img src="@item.ProductPictures.FirstOrDefault().PicturePath" 
+                                            style="width:133px;height:133px;"
+                                            alt="">
+                                            </div>
+
+                                    }
+                                    <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+                                        <div class="cart_item_name cart_info_col">
+                                            <div class="cart_item_title">Ürün Adı</div>
+                                            <div class="cart_item_text">@item.ProductName</div>
+                                        </div>
+                                        <div class="cart_item_color cart_info_col">
+                                            <div class="cart_item_title">Color</div>
+                                            <div class="cart_item_text"><span style="background-color:#999999;"></span>Silver</div>
+                                        </div>
+                                        <div class="cart_item_quantity cart_info_col">
+                                            <div class="cart_item_title">Adet</div>
+                                            <div class="cart_item_text">@item.CardQuantity</div>
+                                        </div>
+                                        <div class="cart_item_price cart_info_col">
+                                            <div class="cart_item_title">Fiyat</div>
+                                            <div class="cart_item_text">@item.UnitPrice</div>
+                                        </div>
+                                        @if (item.ProductDiscount != null)
+                                        {
+                                            <div class="cart_item_total cart_info_col">
+                                                <div class="cart_item_title">İndirim(%)</div>
+                                                <div class="cart_item_text">@item.ProductDiscount.Discount</div>
+                                            </div>
+                                        }
+                                        <div class="cart_item_total cart_info_col">
+                                            <div class="cart_item_title">Fiyat</div>
+                                            @if (item.ProductDiscount != null)
+                                            {
+                                                <div class="cart_item_text">
+                                                    @((item.UnitPrice -(item.UnitPrice * item.ProductDiscount.Discount /100)) * item.CardQuantity) TL
+                                                    </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="cart_item_text">@(item.UnitPrice * item.CardQuantity) TL</div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+
+                    <!-- Order Total -->
+                    <div class="order_total">
+                        <div class="order_total_content text-md-right">
+                            <div class="order_total_title">Toplam:</div>
+                            @{
+                                decimal total = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                if (item.ProductDiscount!=null)
+                                {
+                                    total += (item.UnitPrice - (item.UnitPrice * item.ProductDiscount.Discount /100))
+                                    * item.CardQuantity;
+                                }
+                                else
+                                {
+                                    total += item.UnitPrice * item.CardQuantity;
+                                }
+                            }
+                            <div class="order_total_amount">@total TL</div>
+                        </div>
+                    </div>
+
+                    <div class="cart_buttons">
+                        <form asp-controller="Home" asp-action="CreateOrder" method="get">
+                            <button type="submit" class="button cart_button_checkout">Sipariş Tamamla</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

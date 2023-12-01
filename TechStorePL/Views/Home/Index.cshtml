@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@*<div class="deals_featured">
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
+                @await Component.InvokeAsync("Featured")
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+*@
+
+<div class="deals_featured">
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
+
+                <!-- Deals -->
+                @await Component.InvokeAsync("Deals")
+
+                <!-- Featured -->
+                @await Component.InvokeAsync("Featured")
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section TechStoreScripts{
+    <script>
+        $(document).ready(function () {
+
+
+
+        }); // doc ready bitti
+
+        function getSubCategories(id) {
+
+            //bana gelen id'yi backende gönderip MainCaregoryId=id olan alt kategorileri çekeceğiz.
+            $.ajax({
+                url: "/Home/GetSubCategories/" + id,
+                type: "GET",
+                success: function (res) {
+                    console.log(res.data);
+
+                    if (res.issuccess) {
+                       if (res.data.length > 0) {
+
+                            var ul = document.createElement("ul");
+                          //  ul.setAttribute("id", "meyveList");
+                            for (var i = 0; i < res.data.length; i++) {
+
+                                var liID = "liItem" + res.data[i].id;
+                               
+                                var li = document.createElement("li");
+
+                                li.innerHTML = "<li onmouseenter='getSubCategories(" + res.data[i].id + ")'><a href='#'>" + res.data[i].name +
+                                "<i class='fas fa - chevron - right'></i></a></li>";
+                             
+                                li.setAttribute("id", liID);
+
+                                ul.appendChild(li);
+
+                            } // for bitti
+
+                            //ana li bulunur
+                           var mainliID = "liItem" + id;
+                           var mainli = document.getElementById(mainliID);
+                           mainli.appendChild(ul);
+                           mainli.classList.add("hassubs");
+
+                        } // res data length > 0 bitti
+                    } // res success bitti
+
+                },
+                error: function (err) {
+                    alert("Beklenmedik hata oluştu!" + err);
+                }
+
+            }); // ajax bitti
+
+
+
+        } // getSubCategories func bitti
+
+
+
+        function removehassubclass(id) {
+
+            //ana li bulunur
+            var mainliID = "liItem" + id;
+            var mainli = document.getElementById(mainliID);
+            mainli.classList.remove("hassubs");
+
+        } // removehassubclass func bitti
+    </script>
+
+
+}

@@ -1,0 +1,35 @@
+﻿@model List<CategoryDTO>
+@{
+    ViewData["Title"] = "CategoryList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row" style="margin-left:200px;">
+    <div style="margin-top:80px;">
+        <a href="/Admin/AddCategory" class="btn btn-primary">Rehbere Ekle</a>
+    </div>
+    <h1>Categori List</h1>
+    <div >
+        <table class="table table-hover">
+            <tr>
+                <th>Kategori</th>
+                <th>Üst Kategori</th>
+                <th>İşlemler</th>
+            </tr>
+           @*  @foreach (var item in Model)
+            { *@
+            <tr>
+                <td>@* @item. *@Name</td>
+                <td>@* @item. *@Description</td>
+                <td ><a href="#" class="btn btn-danger">SİL</a></td>
+                <td ><a href="#" class="btn btn-success">GÜNCELLE</a></td>
+            </tr>
+           @*  } *@
+        </table>
+    
+    </div>
+</div>
+
+
+

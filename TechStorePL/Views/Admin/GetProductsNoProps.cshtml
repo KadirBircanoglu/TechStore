@@ -1,0 +1,65 @@
+﻿@model List<ProductDTO>
+@{
+    ViewData["Title"] = "GetProductsNoProps";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section id="main-content">
+    <section class="wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-file-text-o"></i>Yeni Eklenen Ürünler</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">Admin</a></li>
+                    <li><i class="icon_document_alt"></i>Ürünler</li>
+                    <li><i class="fa fa-file-text-o"></i>Yeni Eklenen Ürünler</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!--Project Activity start-->
+                <section class="panel">
+                    <table class="table table-hover personal-task">
+                        <tbody>
+                            <tr>
+                                <td>Id</td>
+                                <td>Eklendği Tarih</td>
+                                <td>SeriNo</td>
+                                <td>Ürün Adı</td>
+                                <td><span class="badge bg-important">İşlem</span></td>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.CreatedDate.ToString("dd-MMMM-yyyy HH:mm:ss")</td>
+                                    <td>@item.SerialNumber </td>
+                                    <td>@item.ProductName  </td>
+                                    <td>
+                                        <a class="btn btn-success"
+                                           href="/Admin/AddProductProps/@item.Id">ÖZELLİK EKLE</a>
+
+                                        <a class="btn btn-default" style="background-color:purple"
+                                           asp-controller="Admin" asp-action="AddProductProps"
+                                           asp-route-id="@item.Id">ÖZELLİK EKLE</a>
+
+
+                                        <a class="btn btn-danger"
+                                           href=@Url.Action("AddProductProps","Admin",new {id= @item.Id})>ÖZELLİK EKLE</a>
+                                    </td>
+
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+
+                </section>
+
+            </div>
+        </div>
+    </section>
+</section>

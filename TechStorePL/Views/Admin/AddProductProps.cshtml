@@ -1,0 +1,444 @@
+﻿@model NewAddedProductViewModel
+@{
+    ViewData["Title"] = "AddProductProps";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section id="main-content">
+    <section class="wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-file-text-o"></i>Yeni Eklenen Ürünler</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">Admin</a></li>
+                    <li><i class="icon_document_alt"></i>Ürünler</li>
+                    <li><i class="fa fa-file-text-o"></i>@Model.Product.ProductName</li>
+                </ol>
+            </div>
+        </div>
+        <form class="form-horizontal " asp-controller="Admin" asp-action="AddProductProps" method="post"
+              enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--Project Activity start-->
+                    <section class="panel">
+
+                        <input type="hidden" asp-for="Product.Id" />
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ürün Adı</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Product.ProductName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Seri No</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Product.SerialNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Stok Miktarı</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Product.StockQuantity">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Fiyat</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" asp-for="Product.UnitPrice">
+                            </div>
+                        </div>
+
+
+                    </section>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <!--tab nav start-->
+                    <section class="panel">
+                        <header class="panel-heading tab-bg-primary ">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#categoryrtab">Ürüne Kategori Ekle</a>
+                                </li>
+                            </ul>
+                        </header>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div id="categorytab" class="tab-pane active">
+                                    <label>Kategori Seç: </label>
+
+                                    <select id="categoryselect" class="form-control" asp-for="CategoryId">
+                                        @foreach (CategoryDTO item in ViewBag.AllCategories)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+
+                                        }
+                                    </select>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </section>
+                    <!--tab nav start-->
+
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+
+                <div class="col-lg-12">
+                    <!--tab nav start-->
+                    <section class="panel">
+                        <header class="panel-heading tab-bg-primary ">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#proptab">Ürün Özellikleri</a>
+                                </li>
+                            </ul>
+                        </header>
+                        <div class="panel-body">
+                            <a href="#myModal" data-toggle="modal" class="btn btn-primary">
+                                Özellik Ekle
+                            </a>
+
+                            <div class="tab-content">
+                                <div id="proptab" class="tab-pane active">
+                                    <select id="propselect"
+                                            multiple class="form-control" asp-for="ProductProps">
+                                    </select>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </section>
+                    <!--tab nav start-->
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <!--tab nav start-->
+                    <section class="panel">
+                        <header class="panel-heading tab-bg-primary ">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#picURLtab">Ürüne Resim URL Ekle</a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#picturetab">Ürüne Resim Ekle</a>
+                                </li>
+
+                            </ul>
+                        </header>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div id="picURLtab" class="tab-pane active">
+
+                                    <div class="col-lg-12">
+                                        <section class="panel">
+                                            <header class="panel-heading">
+                                                Tags Input
+                                            </header>
+                                            <div class="panel-body">
+                                                <input id="tagsinput" class="tagsinput" value="" asp-for="ProductPicsURLS" />
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                    @*   <div class="col-lg-6">
+                                    <label>Resim Linki: </label>
+                                    <input type="text" class="form-control" id="picURLinput" />
+                                    <button type="button" class="btn btn-default" onclick="addpicURL(picURLinput)">
+                                    +
+                                    </button>
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                    <select id="picURLtabselect" class="form-control">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                    </select>
+
+                                    <div id="picURLdiv">
+
+                                    </div>
+                                    <textarea id="picURLtextarea" readonly class="from-control"
+                                    asp-for="Deneme" rows="3"></textarea>
+
+                                    </div> *@
+
+
+
+                                </div>
+                                <div id="picturetab" class="tab-pane">
+                                    <label>Resim Seç: </label>
+                                    <input type="file" class="from-control" asp-for="ProductPicsFiles" accept=".png, .jpg, .jpeg" multiple />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                    <!--tab nav start-->
+
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-default btn-lg btn-block">KAYDET</button>
+
+                </div>
+            </div>
+
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                            <h4 class="modal-title">Özellik Ele</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Özellik Ara: </label>
+                                    <input type="text" class="form-control" id="propsearchtxt">
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectprop">Özellik Seç:</label>
+                                    <select id="selectprop" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="propval">Değer: </label>
+                                    <input type="text" id="propval" class="form-control">
+                                </div>
+
+                                <button type="button" id="btnPropAdd"
+                                        class="btn btn-primary btn-block">
+                                    EKLE
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </section>
+</section>
+
+@section TechStoreScripts{
+    <script>
+        $(document).ready(function () {
+            $("#propselect").attr("disabled", true);
+            $("#propval").attr("disabled", true);
+            $("#selectprop").attr("disabled", true);
+
+            $("#propsearchtxt").on("keyup", function () {
+                if ($("#propsearchtxt").val().length < 2) {
+                    return;
+                }
+                // combosu açılacak
+                $("#propval").attr("disabled", false);
+                $("#selectprop").attr("disabled", false);
+
+                $.ajax({
+                    url: "/Admin/GetProps?pvalue=" + $("#propsearchtxt").val(),
+                    type: "GET",
+                    success: function (res) {
+                        console.log(res);
+                        //Mahalle combosunu temizlesin
+                        $('#selectprop').empty();
+                        $('#selectprop').append('<option value="0" selected>****ÖZELLİK SEÇİNİZ****</option>');
+
+                        if (res.allprops.length > 0) {
+                            res.allprops.forEach(function (item) {
+
+                                //2. yol daha sade
+                                $("#selectprop").append($("<option />")
+                                    .val(item.id).text(item.name));
+                            });
+
+                        }
+
+                    },
+                    error: function (err) {
+                        alert("Beklenmedik hata oluştu!" + err);
+                    }
+
+                });
+
+
+
+
+            }); // propsearchtxt keyup bitti
+
+
+            $("#btnPropAdd").click(function () {
+
+
+                if ($("#selectprop").val() == 0) {
+                    alert("Özellik seçmelisiniz!");
+                    return;
+                }
+
+                if ($("#propval").val().length == 0) {
+                    alert("Değer giriniz!");
+                    return;
+                }
+
+                // var selectprop = document.getElementById("selectprop");
+                // var selectproptext = selectprop.options[selectprop.selectedIndex].text;
+                var selectproptext = $("#selectprop option:selected").text();
+                var pid = "id:" + selectprop.value + "_val:" + selectproptext;
+                var pvalue = selectproptext + " : " + $("#propval").val();
+
+
+                // zaten olan değeri girmesin!
+                //propselect içindeki tüm optionları alıp foreach ile dön
+                console.log("tüm optionlar")
+                var propselect = document.getElementById("propselect");
+                var i=0;
+                for (i = 0; i < propselect.length; i++) {
+                    var valueselect= propselect.options[i].value;
+                     //idsi benimburada seçtiğimidye eşit ise alert return
+
+                    if (valueselect != null
+                        && valueselect.indexOf($("#selectprop").val()) >= 0) {
+                            alert("Bu özelliği zaten seçtiniz!");
+                            // temizlik
+                        ClearElementofModal();
+                        return;
+                        }
+                } // for bitti
+
+
+                
+              
+
+                $("#propselect").attr("disabled", false);
+
+                $("#propval").attr("disabled", false);
+                $("#selectprop").attr("disabled", false);
+
+
+                //2. yol daha sade
+                $("#propselect").append($("<option selected />")
+                    .val(pid).text(pvalue));
+                ClearElementofModal();
+              
+            }); // btnPropAdd click bitti
+
+            function ClearElementofModal() {
+                // temizlik
+                $("#propval").val('');
+                $('#selectprop').empty();
+                $("#propsearchtxt").val('');
+                $("#myModal").modal('toggle');
+            }// ClearElementofModal bitti
+        }); // document ready
+
+    </script>
+
+}
+
+
+@* @section TechStoreScripts{
+    <script>
+        $(document).ready(function () {
+            // $("#picURLtabselect").hide();
+
+
+            // $("#addpicURLbtn").click(function (txt) {
+
+            // });
+
+
+        });
+        // function addpicURL(txt) {
+        //         console.log("geldi");
+        //         console.log(txt.value);
+
+
+
+        //     var list = [];
+        //     $("#picURLtabselect").each(function (item) {
+        //         list.push(item);
+        //     });
+
+        //     console.log(list);
+
+        //     if (list.length == 0) {
+        //         $("#picURLtabselect").append($("<option />").val(1).text(txt.value));
+        //         $("#picURLtabselect").show();
+
+        //     }
+        //     else {
+
+        //     }
+
+        //     console.log(list);
+
+
+
+
+        //     } // addpicURL fonk. bitti
+
+
+        function addpicURL(txt) {
+
+            var othersDonators = ["<span class='o'>John</span>", "<span class='o'>Mike</span>"];
+            var donatorsMoreThan5 = ["<span class='d'>Zalon</span>", "<span class='d'>RotaryCoast</span>"];
+
+            $('#picURLdiv span').each(function () {
+                var $span = $(this);
+
+                var divId = $span.closest('div').attr('id');
+                var spanId = $span.attr('id');
+                var spanTxt = $span.text()
+                console.log(spanTxt);
+                // do something with the above
+            });
+
+            var x = [];
+            x.push("<span>" + txt.value + "</span>");
+            document.getElementById("picURLdiv").innerHTML = donatorsMoreThan5
+                .concat(x)
+                .join(" • ")
+
+
+            var mevcut = $("#picURLtextarea").val();
+            console.log("geldi txtarea");
+            console.log(mevcut);
+            mevcut += txt.value + ";";
+            console.log("mevcut doldu");
+            console.log(mevcut);
+
+            $("#picURLtextarea").val(mevcut);
+
+            $("#picURLinput").val('');
+
+        }
+    </script>
+} *@

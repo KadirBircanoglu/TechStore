@@ -1,0 +1,82 @@
+﻿@model List<CategoryDTO>?
+
+
+
+<!-- Categories Menu -->
+
+<div class="cat_menu_container">
+    <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+        <div class="cat_burger"><span></span><span></span><span></span></div>
+        <div class="cat_menu_text">TÜM KATEGORİLER</div>
+    </div>
+
+    <ul class="cat_menu">
+        @*  <li class="hassubs">
+        <a href="#">Telefon<i class="fas fa-chevron-right"></i></a>
+        <ul>
+        <li class="hassubs">
+        <a href="#">Cep Telefonları<i class="fas fa-chevron-right"></i></a>
+        <ul>
+        <li><a href="#">Apple<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Samsung<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Huawei<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Xiaomi<i class="fas fa-chevron-right"></i></a></li>
+        </ul>
+        </li>
+        <li class="hassubs">
+        <a href="#">Tabletler<i class="fas fa-chevron-right"></i></a>
+        <ul>
+        <li><a href="#">Apple<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Lenovo<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Huawei<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Xiaomi<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Samsung<i class="fas fa-chevron-right"></i></a></li>
+        </ul>
+        </li>
+        <li class="hassubs">
+        <a href="#">Akıllı Saatler<i class="fas fa-chevron-right"></i></a>
+        <ul>
+        <li><a href="#">Apple<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Lenovo<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Huawei<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Xiaomi<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Samsung<i class="fas fa-chevron-right"></i></a></li>
+        </ul>
+        </li>
+        <li class="hassubs">
+        <a href="#">Telefon Kılıfları<i class="fas fa-chevron-right"></i></a>
+        <ul>
+        <li><a href="#">Apple<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Lenovo<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Huawei<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Xiaomi<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Samsung<i class="fas fa-chevron-right"></i></a></li>
+        </ul>
+        </li>
+        <li class="hassubs">
+        <a href="#">Tablet Kılıfları<i class="fas fa-chevron-right"></i></a>
+        <ul>
+        <li><a href="#">Apple<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Lenovo<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Huawei<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Xiaomi<i class="fas fa-chevron-right"></i></a></li>
+        <li><a href="#">Samsung<i class="fas fa-chevron-right"></i></a></li>
+        </ul>
+        </li>
+
+        </ul>
+        </li> *@
+
+        @foreach (var item in Model)
+        {
+            var liID = $"liItem{item.Id}"; //liItem12
+            <li id="@liID" onmouseenter="getSubCategories(@item.Id)" onmouseout="removehassubclass(@item.Id)">
+                <a href="#">@item.Name<i class="fas fa-chevron-right"></i></a>
+            </li>
+        }
+    </ul>
+</div>
+
+
+
+

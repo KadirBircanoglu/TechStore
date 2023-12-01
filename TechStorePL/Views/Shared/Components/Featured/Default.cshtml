@@ -1,0 +1,243 @@
+﻿@model FeaturedPartViewModel?
+
+
+
+<!-- Featured -->
+<div class="featured">
+    <div class="tabbed_container">
+        <div class="tabs">
+            <ul class="clearfix">
+                <li class="active">YENİ ÇIKANLAR</li>
+                <li>İNDİRİMDEKİLER</li>
+                <li>EN ÇOK SATANLAR</li>
+            </ul>
+            <div class="tabs_line"><span></span></div>
+        </div>
+
+        <!-- Product Panel -->
+        <div class="product_panel panel active">
+            <div class="featured_slider slider">
+
+                @foreach (var item in Model.NewProducts)
+                {
+                    <!-- Slider Item -->
+                    <div class="featured_slider_item">
+                        <div class="border_active"></div>
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
+
+                                @if (item.ProductPictures != null && item.ProductPictures.Count > 0)
+                                {
+                                    <img src="@item.ProductPictures.FirstOrDefault().PicturePath" alt=""
+                                         style="width:115px; height:106px;" />
+                                }
+
+                            </div>
+                            <div class="product_content">
+                                @if (item.ProductDiscount!=null)
+                                {
+                                    <div class="product_price discount">@(item.UnitPrice - (item.UnitPrice * item.ProductDiscount.Discount / 100))<span>@item.UnitPrice</span></div>
+                                }else
+                                {
+                                    <div class="product_price"><span>@item.UnitPrice</span></div>
+                                }
+                            
+                                <div class="product_name">
+                                    <div>
+                                        @if (item.ProductName.Length > 20)
+                                        {
+                                            @*<a href="product.html">@item.ProductName.Substring(0,14) ...</a>*@
+                                            <a href="@Url.Action("Product", "Home", new { id = @item.Id })">@item.ProductName.Substring(0,14) ...</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Product", "Home", new { id = @item.Id })">@item.ProductName</a>
+                                            @*<a href="product.html">@item.ProductName</a>*@
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="product_extras">
+                                    <div class="product_color">
+                                        <input type="radio" checked name="product_color" style="background:#b19c83">
+                                        <input type="radio" name="product_color" style="background:#000000">
+                                        <input type="radio" name="product_color" style="background:#999999">
+                                    </div>
+                                    <form asp-controller="Home" asp-action="AddtoCart" method="get" asp-route-id="@item.Id">
+                                    <button type="submit"
+                                        class="product_cart_button">SEPETE EKLE</button>
+                                    </form>
+                                 
+                                </div>
+                            </div>
+                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                            <ul class="product_marks">
+                               @if (item.ProductDiscount!=null)
+                                {
+                                    <li class="product_mark product_discount">@(item.ProductDiscount.Discount) %</li>
+                                }
+                                <li class="product_mark product_new">yeni</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                }
+
+
+
+            </div>
+            <div class="featured_slider_dots_cover"></div>
+        </div>
+
+        <!-- Product Panel -->
+        <div class="product_panel panel ">
+            <div class="featured_slider slider">
+
+                @foreach (var item in Model.OnSaleProducts)
+                {
+                    <!-- Slider Item -->
+                    <div class="featured_slider_item">
+                        <div class="border_active"></div>
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
+
+                                @if (item.ProductPictures != null && item.ProductPictures.Count > 0)
+                                {
+                                    <img src="@item.ProductPictures.FirstOrDefault().PicturePath" alt=""
+                                         style="width:115px; height:106px;" />
+                                }
+
+                            </div>
+                            <div class="product_content">
+                                @if (item.ProductDiscount != null)
+                                {
+                                    <div class="product_price discount">@(item.UnitPrice - (item.UnitPrice * item.ProductDiscount.Discount / 100))<span>@item.UnitPrice</span></div>
+                                }
+                                else
+                                {
+                                    <div class="product_price"><span>@item.UnitPrice</span></div>
+                                }
+
+                                <div class="product_name">
+                                    <div>
+                                        @if (item.ProductName.Length > 20)
+                                        {
+                                            <a href="product.html">@item.ProductName.Substring(0,14) ...</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="product.html">@item.ProductName</a>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="product_extras">
+                                    <div class="product_color">
+                                        <input type="radio" checked name="product_color" style="background:#b19c83">
+                                        <input type="radio" name="product_color" style="background:#000000">
+                                        <input type="radio" name="product_color" style="background:#999999">
+                                    </div>
+                                    <form asp-controller="Home" asp-action="AddtoCart" method="get" asp-route-id="@item.Id">
+                                        <button type="submit"
+                                                class="product_cart_button">
+                                            SEPETE EKLE
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                            <ul class="product_marks">
+                                @if (item.ProductDiscount != null)
+                                {
+                                    <li class="product_mark product_discount">@(item.ProductDiscount.Discount) %</li>
+                                }
+                                <li class="product_mark product_new">indirimli</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                }
+
+
+
+            </div>
+
+            <div class="featured_slider_dots_cover"></div>
+        </div>
+
+        <!-- Product Panel -->
+        <div class="product_panel panel ">
+            <div class="featured_slider slider">
+                @foreach (var item in Model.BestRatedProducts)
+                {
+                    <!-- Slider Item -->
+                    <div class="featured_slider_item">
+                        <div class="border_active"></div>
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
+
+                                @if (item.ProductPictures != null && item.ProductPictures.Count > 0)
+                                {
+                                    <img src="@item.ProductPictures.FirstOrDefault().PicturePath" alt=""
+                                         style="width:115px; height:106px;" />
+                                }
+
+                            </div>
+                            <div class="product_content">
+                                @if (item.ProductDiscount != null)
+                                {
+                                    <div class="product_price discount">@(item.UnitPrice - (item.UnitPrice * item.ProductDiscount.Discount / 100))<span>@item.UnitPrice</span></div>
+                                }
+                                else
+                                {
+                                    <div class="product_price"><span>@item.UnitPrice</span></div>
+                                }
+
+                                <div class="product_name">
+                                    <div>
+                                        @if (item.ProductName.Length > 20)
+                                        {
+                                            <a href="product.html">@item.ProductName.Substring(0,14) ...</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="product.html">@item.ProductName</a>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="product_extras">
+                                    <div class="product_color">
+                                        <input type="radio" checked name="product_color" style="background:#b19c83">
+                                        <input type="radio" name="product_color" style="background:#000000">
+                                        <input type="radio" name="product_color" style="background:#999999">
+                                    </div>
+                                    <form asp-controller="Home" asp-action="AddtoCart" method="get" asp-route-id="@item.Id">
+                                        <button type="submit"
+                                                class="product_cart_button">
+                                            SEPETE EKLE
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                            <ul class="product_marks">
+                                @if (item.ProductDiscount != null)
+                                {
+                                    <li class="product_mark product_discount">@(item.ProductDiscount.Discount) %</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+            <div class="featured_slider_dots_cover"></div>
+        </div>
+
+
+    </div>
+</div>
+
+

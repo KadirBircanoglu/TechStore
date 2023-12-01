@@ -1,0 +1,35 @@
+﻿@model OrderReportAPIVM
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Reports</h1>
+
+<section id="main-content">
+    <section class="wrapper">
+
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box blue-bg">
+            <i class="fa fa-cloud-download"></i>
+            <div class="count">@Model.OrderCount</div>
+            <div class="title">@DateTime.Now.Year @DateTime.Now.Month Sipariş Sayısı</div>
+        </div>
+        <!--/.info-box-->
+    </div>
+    <!--/.col-->
+
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box brown-bg">
+            <i class="fa fa-shopping-cart"></i>
+            <div class="count">@Model.OrderAmount ₺</div>
+            <div class="title">@DateTime.Now.Year @DateTime.Now.Month Ciro</div>
+        </div>
+        <!--/.info-box-->
+    </div>
+    <!--/.col-->
+</div>
+
+</section>
+</section>

@@ -1,0 +1,56 @@
+﻿@model AppUser?
+
+
+<div class="top_bar" style="background-color:#de1710">
+    <div class="container">
+        <img width="1140px" height="55px" src="//i.dr.com.tr/pimages/Content/Uploads/BannerFiles/dr/1140x60-desktop29Ekim.png" alt="">
+        <div class="row">
+            <div class="col d-flex flex-row">
+                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/OneTech/images/phone.png" alt=""></div>+90 555 55 55</div>
+                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/OneTech/images/mail.png" alt=""></div><a href="mailto:techstore@gmail.com">techstore@gmail.com</a></div>
+                <div class="top_bar_content ml-auto">
+                    <div class="top_bar_menu">
+                        <ul class="standard_dropdown top_bar_dropdown">
+                         @*   <li>
+                                <a href="#">English<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li><a href="#">Italian</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                    <li><a href="#">Japanese</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li><a href="#">EUR Euro</a></li>
+                                    <li><a href="#">GBP British Pound</a></li>
+                                    <li><a href="#">JPY Japanese Yen</a></li>
+                                </ul>
+                            </li>*@
+                        </ul>
+                    </div>
+
+                     @if (!string.IsNullOrEmpty(Model?.UserName))
+                    {
+                        <div class="top_bar_user">
+                            <div class="user_icon"><img src="~/OneTech/images/user.svg" alt=""></div>
+                            <div><a href="/Home/OrderHistory">@Model.Name @Model.Surname</a></div>
+@*                            <div><p>@Model.Name @Model.Surname</p> </div>
+*@                            <div><a href="/Account/Logout">ÇIKIŞ YAP</a></div>
+                        </div>
+                    
+                    }
+                    else
+                    {
+                        <div class="top_bar_user">
+                            <div class="user_icon"><img src="~/OneTech/images/user.svg" alt=""></div>
+                            <div><a href="/Account/Register">KAYIT OL</a></div>
+                            <div><a href="/Account/Login">GİRİŞ YAP</a></div>
+                        </div>
+                    }
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

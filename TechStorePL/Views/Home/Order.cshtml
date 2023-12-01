@@ -1,0 +1,73 @@
+﻿@model OrderDTO
+
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var firstname = "";
+}
+@for (int i = 0; i < Model.AppUser.Name.Length; i++)
+{
+    if (i == 0)
+    {
+        firstname = Model.AppUser.Name[i].ToString();
+        continue;
+    }
+
+    if (Model.AppUser.Name[i] == ' ')
+    {
+        firstname += " " + Model.AppUser.Name[i + 1].ToString();
+        i = i + 1;
+        continue;
+    }
+
+    firstname += "*";
+}
+
+@{
+    var surname = "";
+}
+@for (int i = 0; i < Model.AppUser.Surname.Length; i++)
+{
+    if (i == 0)
+    {
+        surname = Model.AppUser.Surname[i].ToString();
+        continue;
+    }
+
+    if (Model.AppUser.Surname[i] == ' ')
+    {
+        surname += " " + Model.AppUser.Surname[i + 1].ToString();
+        i = i + 1;
+        continue;
+    }
+
+    surname += "*";
+}
+
+<h1>
+    Merhaba @firstname @surname
+</h1>
+<h3>Sipariş Tarihi: @Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")</h3>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-hover">
+            <tr>
+                <th>Ürün Adı</th>
+                <th>Birim Fiyat</th>
+            </tr>
+
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@item.Product.ProductName</td>
+                    <td>@item.Product.UnitPrice</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
+

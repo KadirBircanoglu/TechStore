@@ -1,0 +1,28 @@
+﻿@model List<ProductDTO>?
+<!-- Cart -->
+<div class="cart">
+    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+        <div class="cart_icon">
+            <img src="~/OneTech/images/cart.png" alt="">
+            <div class="cart_count"><span>@Model?.Sum(x=> x.CardQuantity)</span></div>
+        </div>
+        <div class="cart_content">
+            <div class="cart_text"><a href="/Home/Cart">SEPET</a></div>
+            @{
+                decimal totalPrice = 0;
+                foreach (var item in Model)
+                {
+                    if (item.ProductDiscount != null && !item.ProductDiscount.IsFinished)
+                    {
+                        totalPrice += (item.UnitPrice - (item.UnitPrice * item.ProductDiscount.Discount / 100)) * item.CardQuantity;
+                    }
+                    else
+                    {
+                        totalPrice += item.UnitPrice * item.CardQuantity;
+                    }
+                }
+            }
+            <div class="cart_price">@totalPrice TL</div>
+        </div>
+    </div>
+</div>
